@@ -1,0 +1,83 @@
+<p>contacts-create works!</p>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+
+  <div formGroupName="address">
+    <h3>Address</h3>
+
+    <label>
+      Street:
+      <input type="text" formControlName="street">
+    </label>
+
+    <label>
+      City:
+      <input type="text" formControlName="city">
+    </label>
+
+    <label>
+      State:
+      <input type="text" formControlName="state">
+    </label>
+
+    <label>
+      Zip Code:
+      <input type="text" formControlName="zip">
+    </label>
+  </div>
+
+  <br>
+<br>
+
+<h3>Items</h3> <button (click)="addItems()">Add Item</button>
+<div formArrayName="items"
+  *ngFor="let item of profileForm.get('items').controls; let i = index;">
+  <div [formGroupName]="i">
+    <input formControlName="name" placeholder="Item name">
+    <input formControlName="description" placeholder="Item description">
+    <input formControlName="price" placeholder="Item price">
+  </div>
+
+  Chosen name: {{ profileForm.controls.items.controls[i].controls.name.value }}
+</div>
+
+  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+
+</form>
+
+
+
+
+
+<br>
+<br>
+
+
+<label>
+  Name:
+  <input type="text" [formControl]="name">
+</label>
+
+
+<p>
+  Debug:
+  Value: {{ name.value }}
+  Value: {{ profileForm.controls.address.controls.state.value }}
+</p>
+<button (click)="updateProfile()">Update Profile</button>
+<button (click)="printFormsArrayValues()">Print Forms Array Values</button>
+
+<p>
+  Form Status: {{ profileForm.status }}
+  Form values: {{ profileForm.value | json }}
+</p>
